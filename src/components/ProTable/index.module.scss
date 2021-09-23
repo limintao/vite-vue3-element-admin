@@ -1,0 +1,46 @@
+.table-layout {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-view {
+  width: 100%;
+  overflow: hidden overlay;
+}
+
+.filter-view {
+
+  .filter-item {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+
+.table-pagination {
+  width: 100%;
+  padding: 15px 20px;
+  text-align: right;
+  margin-top: 10px;
+  background-color: #FFFFFF;
+}
+
+.search-btn-view {
+  text-align: right;
+  float: right;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.show-more {
+  cursor: pointer;
+  margin-right: 5px;
+  display: inline-block;
+
+  i {
+    color: rgb(64, 158, 255);
+  }
+}
