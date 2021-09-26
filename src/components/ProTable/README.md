@@ -20,8 +20,7 @@
 ### Table Methods
 
 | 参数 | 说明 | 参数 |
-| getData |  获取数据的方法 |  -- |
-| refresh |  重新加载数据的方法 |  -- |
+| refresh |  重新加载数据的方法，会清除搜索表单 |  -- |
 
 ### Table Slot
 
@@ -38,7 +37,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- |  ---- |  ---- | ---- | ---- |
 | customFilter | 自定义筛选条件的内容，返回 vue 模板  | Function(params):h  | - | -  |
-| dateFormat | 仅当 `valueType` 参数的值为 `date` 时，设定日期格式，格式为Element UI的日期选择器格式  | String  | - | yyyy-MM-dd |
+| dateFormat | 仅当 `valueType` 参数的值为 `date` 时，设定日期格式，格式为Element UI的日期选择器格式  | String  | - | YYYY-MM-DD |
 | dateType | 仅当 `valueType` 参数的值为 `date` 时，设定日期选择器的类型  | String  | year/month/date/dates/week/datetime/datetimerange/daterange/monthrange | date |
 | fieldMap  | 用于做下拉列表的字段映射；`fieldMap.value`：作为 value 的键名，`fieldMap.label`：作为 label 的键名  | Object  | - | { label: 'label', value: 'value' } |
 | fieldProps | 查询表单的 props，会透传给表单项,如果渲染出来是 Input,就支持 input 的所有 props，同理如果是 select，也支持 select 的所有 props。也支持方法传入 | ()=>Object() | - | - |

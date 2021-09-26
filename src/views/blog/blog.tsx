@@ -121,6 +121,8 @@ export default defineComponent({
           search: true,
           valueType: "date",
           dateType: "datetimerange",
+          formField: ["beginTime", "endTime"],
+          dateFormat: "YYYY-MM-DD HH:mm:ss",
         },
         { props: { prop: "time", label: "执行时间(毫秒)" } },
         {

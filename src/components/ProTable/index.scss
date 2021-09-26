@@ -1,4 +1,4 @@
-.table-layout {
+.pro-table-layout {
   flex: 1;
   width: 100%;
   height: 100%;
@@ -6,21 +6,21 @@
   flex-direction: column;
 }
 
-.table-view {
+.pro-table-view {
   width: 100%;
   overflow: hidden overlay;
 }
 
-.filter-view {
+.pro-table-filter-view {
 
-  .filter-item {
+  .pro-table-filter-item {
     width: 100%;
     margin-bottom: 10px;
   }
 }
 
 
-.table-pagination {
+.pro-table-pagination {
   width: 100%;
   padding: 15px 20px;
   text-align: right;
@@ -28,14 +28,14 @@
   background-color: #FFFFFF;
 }
 
-.search-btn-view {
+.pro-table-search-btn-view {
   text-align: right;
   float: right;
   width: auto;
   margin-bottom: 10px;
 }
 
-.show-more {
+.pro-table-show-more {
   cursor: pointer;
   margin-right: 5px;
   display: inline-block;

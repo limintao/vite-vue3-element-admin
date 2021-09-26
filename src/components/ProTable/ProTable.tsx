@@ -1,12 +1,19 @@
 /*
  * @Author: limit
  * @Date: 2021-09-17 16:06:30
- * @LastEditTime: 2021-09-22 17:48:59
+ * @LastEditTime: 2021-09-26 10:55:43
  * @LastEditors: limit
  * @FilePath: /basic-services/src/components/ProTable/ProTable.tsx
  * @Description: 由limit创建！
  */
-import { defineComponent, reactive, getCurrentInstance, onMounted, withModifiers } from "vue";
+import {
+  defineComponent,
+  reactive,
+  getCurrentInstance,
+  onMounted,
+  ref,
+  watch
+} from "vue";
 import {
   ElTable,
   ElTableColumn,
@@ -15,21 +22,12 @@ import {
   ElCol,
   ElIcon,
   ElButton,
-  ElInput,
-  ElSelect,
-  ElOption,
-  ElDatePicker,
 } from "element-plus";
 import { TableQueryBaseParams, AnyObject } from "./types";
-import { ColumnOptions } from "./types";
-import styles from "./index.module.scss";
+import { ColumnOptions, RequestData } from "./types";
+import "./index.scss";
 import { useExpose } from "./use-expose";
-
-declare interface RequestData {
-  success: boolean;
-  data: any[];
-  total: number;
-};
+import SearchItem from "./search-item";
 
 export default defineComponent({
   name: "ProTable",
@@ -68,7 +66,8 @@ export default defineComponent({
     },
   }),
   setup(props, { slots, attrs }) {
-    const state = reactive<any>({
+    const TableRef = ref<any>();
+    const state = reactive<AnyObject>({
       loading: false,
       showMore: false,
       colSpan: 6,
@@ -85,13 +84,17 @@ export default defineComponent({
       statusText: "暂无数据！",
     });
 
-    const init = (e: any) => {
+    const init = (e?: any) => {
       state.clientWidth = e ? e.currentTarget?.innerWidth : window.innerWidth;
       const search = props.columns.filter((item: ColumnOptions) => item.search);
       const colSpan = getWidthCorrespSpan();
       const displayCol = 24 / colSpan - 1;
-      const offsetCol = (displayCol - (search.length % displayCol)) * colSpan;
+      let offsetCol = 0;
+      const remainder = displayCol - (search.length % (24 / colSpan));
       
+      if (props.showAllSearch || state.showMore || search.length < displayCol)
+        offsetCol = remainder * colSpan;
+
       state.colSpan = colSpan;
       state.displayCol = displayCol;
       state.offsetCol = offsetCol;
@@ -115,7 +118,10 @@ export default defineComponent({
     };
     // 刷新
     const refresh = () => {
-      state.listQuery = Object.assign({}, getCurrentInstance()?.data?.listQuery);
+      state.listQuery = Object.assign(
+        {},
+        getCurrentInstance()?.data?.listQuery
+      );
       getData();
     };
     // 获取默认的表格设置
@@ -165,93 +171,29 @@ export default defineComponent({
       );
       return searchData.length ? (
         <ElRow gutter={20}>
-          {searchData.map((item: ColumnOptions, index: number) => {
-            const props = Object.assign({}, item.props);
-            console.log(item);
-            
-            return (
-              <ElCol
-                key={index}
-                xs={state.colSpan}
-                sm={state.colSpan}
-                style={{
-                  display:
-                    props.showAllSearch ||
-                    state.showMore ||
-                    index < state.displayCol
-                      ? "block"
-                      : "none",
-                }}
-              >
-                {/* 输入框 */}
-                {(!item.valueType || item.valueType == "input") && (
-                  <ElInput
-                    v-model={state.listQuery[item.formField || props.prop]}
-                    placeholder={item.label ? item.label : ("请输入" + props.label)}
-                    class={styles["filter-item"]}
-                    clearable
-                    {...item.fieldProps}
-                  />
-                )}
-                {/* 下拉框 */}
-                {item.valueType == "select" && (
-                  <ElSelect
-                    v-model={state.listQuery[item.formField || props.prop]}
-                    placeholder={item.label ? item.label : ("请选择" + props.label)}
-                    clearable
-                    {...item.fieldProps}
-                    class={styles["filter-item"]}
-                  >
-                    {item.options?.map((it) => (
-                      <ElOption
-                        key={it[item.fieldMap?.value || "value"]}
-                        label={it[item.fieldMap?.label || "label"]}
-                        value={it[item.fieldMap?.value || "value"]}
-                      />
-                    ))}
-                  </ElSelect>
-                )}
-                {/* 时间选择器 */}
-                {item.valueType == "date" && (
-                  <ElDatePicker
-                    v-model={
-                      state.listQuery[
-                        Array.isArray(item.formField)
-                          ? "__del__" + props.prop
-                          : item.formField || props.prop
-                      ]
-                    }
-                    type={item.dateType || "date"}
-                    class={styles["filter-item"]}
-                    clearable
-                    onChange={(val: string[] | string) =>
-                      handleRangeDate(val, item.formField)
-                    }
-                    value-format={item.dateFormat || "yyyy-MM-dd"}
-                    placeholder={item.label ? item.label : props.label}
-                    start-placeholder={
-                      (item.label ? item.label : props.label) + "开始时间"
-                    }
-                    end-placeholder={
-                      (item.label ? item.label : props.label) + "结束时间"
-                    }
-                    {...item.fieldProps}
-                  />
-                )}
-                {/* 自定义筛选框 */}
-                {item.valueType == "custom" &&
-                  item.customFilter?.(state.listQuery)}
-              </ElCol>
-            );
-          })}
+          {searchData.map((item: ColumnOptions, index: number) => (
+            <ElCol
+              key={index}
+              xs={state.colSpan}
+              sm={state.colSpan}
+              style={{
+                display:
+                  props.showAllSearch ||
+                  state.showMore ||
+                  index < state.displayCol ? "block" : "none",
+              }}
+            >
+              {SearchItem(item, state)}
+            </ElCol>
+          ))}
           <ElCol
-            sm={{ span: state.colSpan, offset: state.offsetCol}}
-            xs={{ span: state.colSpan, offset: state.offsetCol}}
-            class={styles["search-btn-view"]}
+            sm={{ span: state.colSpan, offset: state.offsetCol }}
+            xs={{ span: state.colSpan, offset: state.offsetCol }}
+            class="pro-table-search-btn-view"
           >
             {!props.showAllSearch && searchData.length > state.displayCol && (
               <div
-                class={styles["show-more"]}
+                class="pro-table-show-more"
                 onClick={() => (state.showMore = !state.showMore)}
               >
                 <small>{state.showMore ? "收起" : "展开"}</small>
@@ -277,8 +219,7 @@ export default defineComponent({
       const itemProps = Object.assign(
         {},
         {
-          formatter: (row: AnyObject) =>
-            row[item.props.prop] ?? "--",
+          formatter: (row: AnyObject) => row[item.props.prop] ?? "--",
         },
         item.props
       );
@@ -286,7 +227,7 @@ export default defineComponent({
         default: item.template ?? slots[item.slotName || "actions"],
       };
       return item.hidden ? null : (
-        <ElTableColumn { ...itemProps } v-slots={scopedSlots || null} />
+        <ElTableColumn {...itemProps} v-slots={scopedSlots || null} />
       );
     };
     // 获取浏览器宽度返回当前列的占比
@@ -298,24 +239,16 @@ export default defineComponent({
       if (deviceWidth <= 740) colSpan = 12;
       return colSpan;
     };
-    // 处理范围选择的事件
-    const handleRangeDate = (
-      val: string[] | string | undefined,
-      field: string | string[] | undefined
-    ) => {
-      if (Array.isArray(field)) {
-        (state.listQuery as TableQueryBaseParams)[field[0]] = val && val[0];
-        (state.listQuery as TableQueryBaseParams)[field[1]] = val && val[1];
-      }
-    };
 
     // 导出方法
     useExpose({ refresh });
 
+    watch(() => state.showMore, () => init());
+
     onMounted(() => {
-      init(null);
+      init();
       if (props.initLoadData) getData();
-      window.addEventListener('resize', init);
+      window.addEventListener("resize", init);
     });
 
     const tableProps: AnyObject = new Object();
@@ -328,21 +261,24 @@ export default defineComponent({
 
     // render函数
     return () => (
-      <div class={styles["table-layout"]} v-loading={state.loading}>
-        <div class={styles["filter-view"]}>{getSearchTemplate()}</div>
-        {slots["table-before"]?.()}
-        <div class={styles["table-view"]}>
+      <div class="pro-table-layout" v-loading={state.loading}>
+        <div class="pro-table-filter-view">{getSearchTemplate()}</div>
+        {slots["pro-table-before"]?.()}
+        <div class="pro-table-view">
           <ElTable
+            ref={TableRef}
             v-slots={slots}
             {...getDefaultTableProps()}
             {...tableProps}
             {...attrs}
           >
-            {props.columns.map((item: ColumnOptions) => getColumnTemplate(item))}
+            {props.columns.map((item: ColumnOptions) =>
+              getColumnTemplate(item)
+            )}
           </ElTable>
         </div>
         <div
-          class={styles["table-pagination"]}
+          class="pro-table-pagination"
           style={{ textAlign: props.page.align }}
         >
           <ElPagination
