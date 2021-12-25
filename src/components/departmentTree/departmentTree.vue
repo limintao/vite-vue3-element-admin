@@ -3,7 +3,7 @@
     <!-- <el-card class="box-card"> -->
     <!-- <el-collapse v-model="activeNames" @change="handleChange"> -->
       <!-- <el-collapse-item title="上海一芯管理平台" name="1"> -->
-        <el-tree
+        <el-tree-v2
           ref="treeForm"
           :data="data"
           :props="defaultProp"
@@ -16,7 +16,7 @@
           node-key="id"
           highlight-current
         >
-        </el-tree>
+        </el-tree-v2>
       <!-- </el-collapse-item> -->
     <!-- </el-collapse> -->
     <!-- </el-card> -->

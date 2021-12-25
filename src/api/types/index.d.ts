@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-09-15 13:19:28
- * @LastEditTime: 2021-09-22 15:49:02
+ * @LastEditTime: 2021-12-25 16:13:09
  * @LastEditors: limit
- * @FilePath: /basic-services/src/api/types/index.d.ts
+ * @FilePath: \basic-services\src\api\types\index.d.ts
  * @Description: 由limit创建！
  */
 
@@ -86,5 +86,12 @@ export namespace System {
 
   export type PermissionUpdate = Partial<PermissionAdd> & {
     id: number;
+  }
+
+  export type GetCurrentTree = {
+    deptName?: string;
+    deptCode?: number;
+    usable?: boolean;
+    tenantId: number;
   }
 }

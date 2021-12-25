@@ -1,0 +1,24 @@
+.system-module {
+  .tree-filter-view {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .tree-content-view {
+    padding: 10px;
+    background-color: #FFFFFF;
+  }
+
+  .custom-tree-node-view {
+    flex: 1;
+    display: flex;
+    padding-right: 8px;
+    align-items: center;
+    justify-content: space-between;
+    
+    .el-link {
+      font-size: 14px;
+      margin-left: 15px;
+    }
+  }
+}

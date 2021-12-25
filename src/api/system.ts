@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-09-18 14:31:04
- * @LastEditTime: 2021-09-22 18:02:20
+ * @LastEditTime: 2021-12-25 16:13:26
  * @LastEditors: limit
- * @FilePath: /basic-services/src/api/system.ts
+ * @FilePath: \basic-services\src\api\system.ts
  * @Description: 由limit创建！
  */
 
@@ -35,7 +35,7 @@ export const updatePermission = (data: System.PermissionUpdate) =>
 
 // 根据租户id和分组获取所有资源 前端构建树
 export const getTreeByTenantIdAndGroup = (params: {
-  group: string;
+  group: "web" | "app";
   tenantId: number;
 }) =>
   request({
@@ -56,6 +56,13 @@ export const movePermission = (data: { fid: number; sid: number }) =>
 export const currentPermission = () =>
   request({
     url: `upms/permission/currentTreeByGroup/web`,
+    method: "GET",
+  });
+
+// 获取当前登录人的资源权限列表
+export const getPermissionApp = () =>
+  request({
+    url: `upms/permission/currentTreeByGroup/app`,
     method: "GET",
   });
 
@@ -91,13 +98,6 @@ export const orderMechanism = (data: { fid: number; sid: number }) =>
     data,
   });
 
-// 获取机构列表
-export const getMechanismList = () =>
-  request({
-    url: `upms/dept/currentTree`,
-    method: "GET",
-  });
-
 // 获取的部门数据根据名称模糊查询
 export const getMechanismListByName = (params: { name: string }) =>
   request({
@@ -106,10 +106,11 @@ export const getMechanismListByName = (params: { name: string }) =>
   });
 
 // 获取当前人的部门数据
-export const getcurrentTree = () =>
+export const getcurrentTree = (params: System.GetCurrentTree) =>
   request({
     url: `upms/dept/currentTree`,
     method: "GET",
+    params
   });
 
 // 租户列表

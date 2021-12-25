@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-03-26 15:19:01
- * @LastEditTime: 2021-09-17 10:30:46
+ * @LastEditTime: 2021-12-23 14:47:30
  * @LastEditors: limit
- * @FilePath: /vite-vue3-ts-jsx/src/utils/formatTree.ts
+ * @FilePath: \basic-services\src\utils\formatTree.ts
  * @Description: 由limit创建！
  */
 /*
@@ -22,7 +22,7 @@ const getListData = function getListData(
   datas: any[],
   bigPid: number,
   defaultProp: Props
-) {
+): any[] {
   if (!defaultProp) {
     defaultProp = {
       label: "deptName",
@@ -44,11 +44,12 @@ const getListData = function getListData(
   });
   return data2treeDG(datas, dataArray, defaultProp);
 };
+
 function data2treeDG(
   datas: any[],
   dataArray: any[],
   defaultProp: Props
-) {
+): any[] {
   for (let j = 0; j < dataArray.length; j++) {
     let dataArrayIndex = dataArray[j];
     let childrenArray = [];

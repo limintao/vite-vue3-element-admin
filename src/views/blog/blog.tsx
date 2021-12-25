@@ -1,20 +1,20 @@
 import { defineComponent, reactive, ref, getCurrentInstance, onMounted } from "vue";
 import { useStore } from "@/store";
 import { getlogList, deletelog, batchDelete, tenantlistForLog } from "@/api/system";
-import { TableQueryBaseParams, AnyObject } from "@/components/ProTable/types";
+import type { TableQueryBaseParams } from "@/components/ProTable/types";
 import BlogDialog from "./dialog";
 
 export default defineComponent({
   name: "SystemBlog",
   setup(props) {
     const store = useStore();
-    const proTableRef = ref<AnyObject>();
+    const proTableRef = ref<Record<string, any>>();
     const dialogVisible = ref<boolean>(false);
-    const temporary = ref<AnyObject>({});
-    const multipleSelectionAll = ref<AnyObject[]>([]);
+    const temporary = ref<Record<string, any>>({});
+    const multipleSelectionAll = ref<Record<string, any>[]>([]);
     const app = getCurrentInstance()?.appContext.config.globalProperties;
 
-    const paramsTemp = (row: AnyObject): JSX.Element => (
+    const paramsTemp = (row: Record<string, any>): JSX.Element => (
       <el-popover
         placement="right"
         title="请求参数"
@@ -32,13 +32,13 @@ export default defineComponent({
     );
 
     // 查看日志详情
-    const viewShow = (row: AnyObject) => {
+    const viewShow = (row: Record<string, any>) => {
       temporary.value = row;
       dialogVisible.value = true;
     };
 
     // 删除日志
-    const deleteLog = (row: AnyObject) => {
+    const deleteLog = (row: Record<string, any>) => {
       app?.$confirm("确认删除该日志信息？", "操作提示", {
         type: "warning",
         confirmButtonText: "确定",
@@ -46,10 +46,10 @@ export default defineComponent({
       }).then(() => {
         deletelog(row.id).then((result: any) => {
           if (result.status == 200) {
-            app?.$message.success({ message: "删除成功！" });
+            app?.$notify.success({ title: "操作结果", message: "删除成功！" });
             proTableRef.value?.refresh();
           } else {
-            app?.$message.error({ message: result.msg });
+            app?.$notify.error({ title: "操作结果", message: result.msg });
           }
         });
       }).catch();
@@ -69,10 +69,10 @@ export default defineComponent({
       }).then(() => {
         batchDelete(selectData).then((result: any) => {
           if (result.status == 200) {
-            app?.$message.success({ message: "删除成功！" });
+            app?.$notify.success({ title: "操作结果", message: "删除成功！" });
             proTableRef.value?.refresh();
           } else {
-            app?.$message.error({ message: result.msg });
+            app?.$notify.error({ title: "操作结果", message: result.msg });
           }
         });
       })
@@ -105,7 +105,7 @@ export default defineComponent({
           props: { prop: "success", label: "是否成功", align: "center" },
           search: true, valueType: "select",
           options: [{label: "成功", value: 1},{label: "失败", value: 0}],
-          template: ({ row }: AnyObject) => (
+          template: ({ row }: Record<string, any>) => (
             <i
               class={"el-icon-" + (row.success ? "success" : "error")}
               style={{
@@ -128,7 +128,7 @@ export default defineComponent({
         {
           props: { label: "操作", align: "center" },
           type: "actions",
-          template: ({ row }: AnyObject) => (
+          template: ({ row }: Record<string, any>) => (
             <>
               <el-button
                 type="primary"
@@ -158,6 +158,7 @@ export default defineComponent({
       multipleSelectionAll.value = selection;
     };
 
+    // 获取数据
     const getListData = async (query: TableQueryBaseParams) => {
       const params: TableQueryBaseParams = query;
       const response = await getlogList(params).catch(() => null);
@@ -182,7 +183,7 @@ export default defineComponent({
       <div class="main-content">
         <pro-table
           ref={proTableRef}
-          row-key={(row: AnyObject) => row.id}
+          row-key={(row: Record<string, any>) => row.id}
           request={getListData}
           page={data.page}
           onSelectionChange={handleSelectionChange}

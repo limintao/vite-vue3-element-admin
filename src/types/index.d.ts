@@ -10,7 +10,7 @@
 import { App } from "vue";
 import { RouteRecordRaw } from "vue-router";
 
-export declare type AnyObject = {
+export declare type Record<string, any> = {
   [name: string]: any;
 };
 

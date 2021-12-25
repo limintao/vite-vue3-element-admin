@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-09-17 16:06:30
- * @LastEditTime: 2021-09-26 10:55:43
+ * @LastEditTime: 2021-12-24 18:08:51
  * @LastEditors: limit
- * @FilePath: /basic-services/src/components/ProTable/ProTable.tsx
+ * @FilePath: \basic-services\src\components\ProTable\ProTable.tsx
  * @Description: 由limit创建！
  */
 import {
@@ -23,7 +23,7 @@ import {
   ElIcon,
   ElButton,
 } from "element-plus";
-import { TableQueryBaseParams, AnyObject } from "./types";
+import { TableQueryBaseParams } from "./types";
 import { ColumnOptions, RequestData } from "./types";
 import "./index.scss";
 import { useExpose } from "./use-expose";
@@ -67,17 +67,18 @@ export default defineComponent({
   }),
   setup(props, { slots, attrs }) {
     const TableRef = ref<any>();
-    const state = reactive<AnyObject>({
+    const initQueryParams = () => ({
+      total: 0,
+      pageSize: 10,
+      pageNumber: 1,
+    });
+    const state = reactive<Record<string, any>>({
       loading: false,
       showMore: false,
       colSpan: 6,
       displayCol: 3,
       offsetCol: 0,
-      listQuery: {
-        total: 0,
-        pageSize: 10,
-        pageNumber: 1,
-      },
+      listQuery: initQueryParams(),
       tableData: [],
       tableProps: {},
       clientWidth: innerWidth,
@@ -100,6 +101,7 @@ export default defineComponent({
       state.offsetCol = offsetCol;
     };
 
+
     // 获取数据
     const getData = async () => {
       state.loading = true;
@@ -118,10 +120,7 @@ export default defineComponent({
     };
     // 刷新
     const refresh = () => {
-      state.listQuery = Object.assign(
-        {},
-        getCurrentInstance()?.data?.listQuery
-      );
+      state.listQuery = initQueryParams();
       getData();
     };
     // 获取默认的表格设置
@@ -219,7 +218,7 @@ export default defineComponent({
       const itemProps = Object.assign(
         {},
         {
-          formatter: (row: AnyObject) => row[item.props.prop] ?? "--",
+          formatter: (row: Record<string, any>) => row[item.props.prop] ?? "--",
         },
         item.props
       );
@@ -251,7 +250,7 @@ export default defineComponent({
       window.addEventListener("resize", init);
     });
 
-    const tableProps: AnyObject = new Object();
+    const tableProps: Record<string, any> = new Object();
     // 循环 el-table 组件的属性
     Object.keys(ElTable.props).forEach((k) => {
       if (k == "data") return;

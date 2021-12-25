@@ -1,7 +1,6 @@
-import { AnyObject } from "@/types";
 import type { Ref } from "vue";
 
-export default (show: Ref<boolean>, data: AnyObject) => {
+export default (show: Ref<boolean>, data: Record<string, any>) => {
   return (
     <el-dialog
       center

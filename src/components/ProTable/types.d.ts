@@ -1,16 +1,16 @@
 /*
  * @Author: limit
  * @Date: 2021-09-17 17:18:45
- * @LastEditTime: 2021-09-26 09:26:55
+ * @LastEditTime: 2021-12-23 14:58:55
  * @LastEditors: limit
- * @FilePath: /basic-services/src/components/ProTable/types.d.ts
+ * @FilePath: \basic-services\src\components\ProTable\types.d.ts
  * @Description: 由limit创建！
  */
 
 import { ElTableColumn } from "element-plus";
 import type { Plugin } from 'vue';
 import type { IDatePickerType } from "element-plus/lib/components/date-picker/src/date-picker.type";
-import type { IPaginationProps } from "element-plus/lib/components/pagination/src/pagination";
+import type { PaginationProps } from "element-plus/lib/components/pagination/src/pagination";
 import type { TableProps } from "element-plus/lib/components/table/src/table/defaults"
 
 declare type SelectFieldMap = {
@@ -43,11 +43,7 @@ export declare type ColumnOptions = {
   valueType?: "input" | "date" | "select" | "custom";
 };
 
-export declare type AnyObject = {
-  [name: string]: any;
-};
-
-export declare type TableQueryBaseParams = AnyObject & {
+export declare type TableQueryBaseParams = Record<string, any> & {
   pageSize: number;
   pageNumber: number;
 }
@@ -55,7 +51,7 @@ export declare type TableQueryBaseParams = AnyObject & {
 export declare const ProTable: import("vue").DefineComponent<{
   request(): RequestData;
   columns: ColumnOptions[];
-  page?: IPaginationProps;
+  page?: PaginationProps;
   "show-all-search"?: boolean;
   "init-load-data"?: boolean;
-} & TableProps<AnyObject>> & Plugin
+} & TableProps<Record<string, any>>> & Plugin

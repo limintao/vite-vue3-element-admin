@@ -9,6 +9,7 @@
   "dependencies": {
     "@vitejs/plugin-vue-jsx": "^1.1.7",
     "@vue/babel-plugin-jsx": "^1.0.6",
+    "array-to-tree": "^3.3.2",
     "element-plus": "^1.1.0-beta.7",
     "nprogress": "^0.2.0",
     "vue": "^3.0.5",
@@ -25,6 +26,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.1",
+    "e-icon-picker": "^2.0.8",
     "js-cookie": "^3.0.0",
     "normalize.css": "^8.0.1",
     "sass": "^1.38.1",
