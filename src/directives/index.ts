@@ -70,12 +70,12 @@ export default {
       // 当被绑定的元素插入到 DOM 中时……
       mounted(el, binding, node) {
         const { code, show = true } = binding.value;
-        const route = app.config.globalProperties.$router.currentRoute.value;
+        const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
         
-        const roles = route.meta.permissions;
-        if (roles.indexOf(code) >= 0 && show) return code;
+        const roles = userInfo.permissions;
+        if (roles.includes(code) && show) return code;
         else el.parentNode && el.parentNode.removeChild(el);
-        //使用方式： v-permission="{code: 'base:tenant:add', show: false}";
+        //使用方式： v-permission="{ code: 'base:tenant:add' }";
         //"base:tenant:delete"删除  "base:tenant:export" 导出  "base:tenant:add" 增加 "base:tenant:update" //修改
       },
     });

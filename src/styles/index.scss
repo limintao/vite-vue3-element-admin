@@ -16,7 +16,6 @@
 body {
   height: 100%;
   color: #1D1D1F;
-  background-color: #F5F5F7;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -49,6 +48,7 @@ html {
 
 #app {
   height: 100%;
+  background-color: #F5F5F7;
 }
 
 *,
