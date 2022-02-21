@@ -10,6 +10,7 @@
 | request | 调取接口时执行的方法，参数 `paramas` 为发送请求时的参数，返回一个对象。对象中必须要有 `data` 和 `success`，如果需要手动分页 `total` 也是必需的。 | Function(params) => {data, success, total} | - | -  |
 | show-all-search | 是否展示所有的搜索项，设为false会有展开收起操作 | Boolean | - | false |
 | init-load-data | 是否初始化时加载远程数据，设为false后需要手动调方法获取数据 | Boolean | - | true |
+| last-col-copies | 搜索的最后一列的占比，当最后一列需要放置的按钮过多时可配置 | Number | - | 1 |
 
 
 ### Table Events

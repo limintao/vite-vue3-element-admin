@@ -20,6 +20,7 @@ export default (item: ColumnOptions, state: any): JSX.Element | undefined => {
         placeholder={item.label ? item.label : "请输入" + props.label}
         class="pro-table-filter-item"
         clearable
+        maxlength={50}
         {...item.fieldProps}
       />
     );

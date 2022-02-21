@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-09-18 14:31:04
- * @LastEditTime: 2021-12-25 16:13:26
+ * @LastEditTime: 2022-02-17 15:40:52
  * @LastEditors: limit
- * @FilePath: \basic-services\src\api\system.ts
+ * @FilePath: /basic-services-v3/src/api/system.ts
  * @Description: 由limit创建！
  */
 
@@ -106,7 +106,7 @@ export const getMechanismListByName = (params: { name: string }) =>
   });
 
 // 获取当前人的部门数据
-export const getcurrentTree = (params: System.GetCurrentTree) =>
+export const getcurrentTree = (params?: System.GetCurrentTree) =>
   request({
     url: `upms/dept/currentTree`,
     method: "GET",
@@ -152,11 +152,11 @@ export const deletetenant = (id: number) =>
   });
 
 // 日志分页查询
-export const getlogList = (query: System.LogList) =>
+export const getlogList = (params: System.LogList) =>
   request({
     url: `upms/log/list`,
     method: "GET",
-    params: query,
+    params,
   });
 
 //删除日志
@@ -166,11 +166,12 @@ export const deletelog = (id: number) =>
     method: "DELETE",
   });
 
-//删除日志
+//批量删除日志
 export const batchDelete = (data: number[]) =>
   request({
     url: "upms/log/batchDelete",
     method: "DELETE",
+    data,
   });
   
   // 日志界面租户下拉(平台看所有 非平台只看自己) 

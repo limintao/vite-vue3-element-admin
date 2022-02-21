@@ -24,3 +24,35 @@ Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
 2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
 3. Open `src/main.ts` in VSCode
 4. Open the VSCode command palette 5. Search and run "Select TypeScript version" -> "Use workspace version"
+
+
+## 开发运行
+```zsh
+  # 拉取代码
+  git clone http://git.aizhixin.com/limintao/basic-services-v3.git
+
+  # 进入项目目录
+  cd basic-services-v3
+
+  # 安装依赖，国外依赖，安装较慢，可用下面的命令解决；
+  npm install
+
+  # 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
+  npm install --registry=https://registry.npm.taobao.org
+
+  # 启动服务
+  npm run dev
+```
+浏览器访问 http://localhost:3000
+
+##  发布
+
+```zsh
+  npm run build
+```
+
+## 其他
+```zsh
+  # 预览发布环境
+  npm run serve
+```

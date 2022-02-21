@@ -1,15 +1,14 @@
 /*
  * @Author: limit
  * @Date: 2021-09-17 16:06:30
- * @LastEditTime: 2021-12-24 18:08:51
+ * @LastEditTime: 2022-02-21 10:43:50
  * @LastEditors: limit
- * @FilePath: \basic-services\src\components\ProTable\ProTable.tsx
+ * @FilePath: /basic-services-v3/src/components/ProTable/ProTable.tsx
  * @Description: 由limit创建！
  */
 import {
   defineComponent,
   reactive,
-  getCurrentInstance,
   onMounted,
   ref,
   watch
@@ -64,6 +63,11 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    /* 搜索最后一列所占的份数 */
+    lastColCopies: {
+      type: Number,
+      default: 1
+    },
   }),
   setup(props, { slots, attrs }) {
     const TableRef = ref<any>();
@@ -89,7 +93,7 @@ export default defineComponent({
       state.clientWidth = e ? e.currentTarget?.innerWidth : window.innerWidth;
       const search = props.columns.filter((item: ColumnOptions) => item.search);
       const colSpan = getWidthCorrespSpan();
-      const displayCol = 24 / colSpan - 1;
+      const displayCol = 24 / colSpan - 1 * props.lastColCopies;
       let offsetCol = 0;
       const remainder = displayCol - (search.length % (24 / colSpan));
       
@@ -105,6 +109,7 @@ export default defineComponent({
     // 获取数据
     const getData = async () => {
       state.loading = true;
+      TableRef.value?.clearSelection();
       const result: RequestData = await props.request({ ...delUselessField() });
       state.tableData = result.data || [];
       state.listQuery.total = result.total || 0;

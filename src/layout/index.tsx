@@ -3,7 +3,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "@/store";
 import "./index.scss";
 
-import { AppMain, Aside, NavBar } from "./components";
+import { AppMain, Aside, NavBar, TagsView } from "./components";
 
 export default defineComponent({
   name: "Layout",
@@ -14,11 +14,11 @@ export default defineComponent({
     
     return () => (
       <div class="layout-basic">
-        <section class="layout layout-has-sider">
-          <div style="width: 250px"></div>
+        <section class={["layout", "layout-has-sider", !store.getters.sidebar.opened && "hide-sidebar"]}>
           <Aside />
           <div class="layout">
             <NavBar />
+            <TagsView />
             <AppMain />
           </div>
         </section>

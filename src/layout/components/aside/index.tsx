@@ -1,6 +1,6 @@
 import { defineComponent, reactive, ref, computed, Slots } from "vue";
 import type { _RouteRecordBase } from "vue-router";
-import { useRouter, RouterLink, useLink } from "vue-router";
+import { RouterLink, useLink } from "vue-router";
 import { useStore } from "@/store";
 import settings from "@/settings";
 import Logo from "./logo";
@@ -11,8 +11,6 @@ export default defineComponent({
   name: "LayoutAside",
   setup() {
     const store = useStore();
-    const router = useRouter();
-    const data = reactive({});
     const collapse = computed(() => store.getters.sidebar.opened);
     const menus = computed(() =>
       store.getters.menus.filter((e: any) => !e.hidden)
@@ -62,7 +60,7 @@ export default defineComponent({
     };
 
     return () => (
-      <aside class={"layout-sider sider sider-fixed" + (" sider-" + settings.theme)}>
+      <aside class={"layout-sider sider" + (" sider-" + settings.theme)}>
         <div class="layout-sider-children">
           <Logo />
           <div class="layout-sider-content">
@@ -71,6 +69,11 @@ export default defineComponent({
                 renderMenuItem(item, String(index))
               )}
             </el-menu>
+          </div>
+          <div class="layout-sider-links">
+            <span class="menu-item" onClick={() => store.dispatch("toggleSideBar")}>
+              <i class={store.getters.sidebar.opened ? "el-icon-s-fold": "el-icon-s-unfold"} />
+            </span>
           </div>
         </div>
       </aside>

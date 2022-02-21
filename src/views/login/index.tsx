@@ -58,9 +58,9 @@ export default defineComponent({
         <div class="logo">
           <img src={getAssetsFileUrl("images/login-logo.png")} alt="logo.png" />
         </div>
-        <div class="salutatory-view">
+        {/* <div class="salutatory-view">
           <p>HI，新OA，感谢使用</p>
-        </div>
+        </div> */}
         <div class="login-content">
           <div class="title-container">
             <h3 class="title">春晖</h3>

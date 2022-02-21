@@ -132,14 +132,14 @@ export default defineComponent({
 
     const filterNode = (value: string, data: Record<string, any>): boolean => {
       if (typeof state.filterUsable !== "number" && state.filterText)
-        return data.deptName.indexOf(state.filterText) !== -1;
+        return data.deptName?.indexOf(state.filterText) !== -1;
       else if (!state.filterText && typeof state.filterUsable === "number")
         return data.usable === state.filterUsable;
       else if (!state.filterText && typeof state.filterUsable !== "number")
         return true;
       else
         return (
-          data.name.indexOf(state.filterText) !== -1 &&
+          data.name?.indexOf(state.filterText) !== -1 &&
           data.usable === state.filterUsable
         );
     };

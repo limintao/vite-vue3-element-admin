@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-09-15 13:19:28
- * @LastEditTime: 2021-12-25 16:13:09
+ * @LastEditTime: 2022-02-17 15:40:44
  * @LastEditors: limit
- * @FilePath: \basic-services\src\api\types\index.d.ts
+ * @FilePath: /basic-services-v3/src/api/types/index.d.ts
  * @Description: 由limit创建！
  */
 
@@ -92,6 +92,6 @@ export namespace System {
     deptName?: string;
     deptCode?: number;
     usable?: boolean;
-    tenantId: number;
+    tenantId?: number;
   }
 }

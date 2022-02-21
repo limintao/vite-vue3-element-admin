@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-03-26 15:19:01
- * @LastEditTime: 2021-12-23 14:47:30
+ * @LastEditTime: 2022-02-17 16:26:33
  * @LastEditors: limit
- * @FilePath: \basic-services\src\utils\formatTree.ts
+ * @FilePath: /basic-services-v3/src/utils/formatTree.ts
  * @Description: 由limit创建！
  */
 /*
@@ -14,7 +14,7 @@
   */
 interface Props {
   label: string;
-  id: string | number;
+  value: number | string;
   parentId: number | string;
 }
 
@@ -25,8 +25,8 @@ const getListData = function getListData(
 ): any[] {
   if (!defaultProp) {
     defaultProp = {
+      value: "id",
       label: "deptName",
-      id: "id",
       parentId: "parentId",
     };
   }
@@ -53,7 +53,7 @@ function data2treeDG(
   for (let j = 0; j < dataArray.length; j++) {
     let dataArrayIndex = dataArray[j];
     let childrenArray = [];
-    let Id = dataArrayIndex[defaultProp.id];
+    let Id = dataArrayIndex[defaultProp.value];
     for (let i = 0; i < datas.length; i++) {
       let data = datas[i];
       let pid = data[defaultProp.parentId];

@@ -1,7 +1,9 @@
-import { defineComponent, reactive, ref, computed, getCurrentInstance } from "vue";
+import { defineComponent, reactive, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@/store";
 import { getAssetsFileUrl } from "@/utils/file";
+import Breadcrumb from "./breadcrumb";
+import { ElMessageBox, ElNotification } from 'element-plus'
 
 export default defineComponent({
   name: "NavBar",
@@ -9,13 +11,12 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const data = reactive({});
-    const app = getCurrentInstance()?.appContext.config.globalProperties;
     const avatar = computed(() => store.getters.avatar);
     const searchInputRef = ref();
     const showHeaderSearch = ref<boolean>(false);
 
     const logout = () => {
-      app?.$confirm("此操作将退出系统，是否继续？", "操作提示", {
+      ElMessageBox.confirm("此操作将退出系统，是否继续？", "操作提示", {
         type: "warning",
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -23,13 +24,13 @@ export default defineComponent({
         try {
           await store.dispatch("logout");
           router.replace("/login");
-          app?.$notify({
+          ElNotification({
             title: "操作通知",
             message: "退出登录成功！",
             type: "success"
           });
         } catch (error: any) {
-          app?.$notify({
+          ElNotification({
             title: "操作通知",
             message: error,
             type: "error"
@@ -58,7 +59,7 @@ export default defineComponent({
     return () => (
       <header class="layout-header header-action">
         <div class="global-header">
-          <div class="header-left-content"></div>
+          <div class="header-left-content"><Breadcrumb/></div>
           <el-space warp class="header-right-content">
             <div
               class="header-content-action"

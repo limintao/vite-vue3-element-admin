@@ -1,4 +1,5 @@
-import { defineComponent, computed, Transition, KeepAlive, Slots } from "vue";
+import { defineComponent, computed, Transition, KeepAlive } from "vue";
+import type { Slots } from "vue";
 import { RouterView } from "vue-router";
 import { useStore } from "@/store";
 

@@ -1,9 +1,9 @@
 /*
  * @Author: limit
  * @Date: 2021-03-26 15:19:01
- * @LastEditTime: 2021-08-27 17:43:26
+ * @LastEditTime: 2022-02-17 10:53:23
  * @LastEditors: limit
- * @FilePath: /vite-vue3-ts-jsx/src/store/modules/app.ts
+ * @FilePath: /basic-services-v3/src/store/modules/app.ts
  * @Description: 由limit创建！
  */
 import { Module } from 'vuex';
