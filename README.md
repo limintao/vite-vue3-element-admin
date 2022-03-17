@@ -23,13 +23,14 @@ Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
 1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
 2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
 3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette 5. Search and run "Select TypeScript version" -> "Use workspace version"
+4. Open the VSCode command palette 
+5. Search and run "Select TypeScript version" -> "Use workspace version"
 
 
 ## 开发运行
 ```zsh
   # 拉取代码
-  git clone http://git.aizhixin.com/limintao/basic-services-v3.git
+  git clone https://github.com/limintao/vite-vue3-element-admin.git
 
   # 进入项目目录
   cd basic-services-v3
@@ -38,7 +39,7 @@ Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
   npm install
 
   # 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
-  npm install --registry=https://registry.npm.taobao.org
+  npm install --registry=https://registry.npmmirror.com
 
   # 启动服务
   npm run dev
