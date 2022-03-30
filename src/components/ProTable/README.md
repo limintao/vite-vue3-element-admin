@@ -5,7 +5,7 @@
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- |  ---- |  ---- | ---- | ---- |
-| colums  | 每一列的配置项，详细配置见 [Table-column](#colums) | Array | - | []  |
+| columns  | 每一列的配置项，详细配置见 [Table-column](#columns) | Array | - | []  |
 | page  | 分页的配置项，所有配置为 `el-pagination` 的配置，传入 `page-size`、`current-page`、`total` 三个字段无效，传入 `align` 字段可配置分页垂直对齐方式，可选值有 `left`、`center`、`right` | Object  | - | {} |
 | request | 调取接口时执行的方法，参数 `paramas` 为发送请求时的参数，返回一个对象。对象中必须要有 `data` 和 `success`，如果需要手动分页 `total` 也是必需的。 | Function(params) => {data, success, total} | - | -  |
 | show-all-search | 是否展示所有的搜索项，设为false会有展开收起操作 | Boolean | - | false |
