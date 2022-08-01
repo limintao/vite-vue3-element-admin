@@ -33,7 +33,7 @@ Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
   git clone https://github.com/limintao/vite-vue3-element-admin.git
 
   # 进入项目目录
-  cd basic-services-v3
+  cd vite-vue3-element-admin
 
   # 安装依赖，国外依赖，安装较慢，可用下面的命令解决；
   npm install
