@@ -8,7 +8,7 @@
  */
 export default {
 
-  title: '一芯管理平台',
+  title: 'Vue3后台管理平台',
   showSettings: false,
   theme: "dark",      // dark | light
   tagsView: true,
