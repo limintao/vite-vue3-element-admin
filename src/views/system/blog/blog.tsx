@@ -12,7 +12,7 @@ export default defineComponent({
     const dialogVisible = ref<boolean>(false);
     const temporary = ref<Record<string, any>>({});
     const multipleSelectionAll = ref<Record<string, any>[]>([]);
-    const app = getCurrentInstance()?.appContext.config.globalProperties;
+    const app = getCurrentInstance()?.proxy;
 
     const paramsTemp = (row: Record<string, any>): JSX.Element => (
       <el-popover

@@ -106,7 +106,7 @@ export default defineComponent({
       isEditDialog: false,
       dialogInfoTitle: "新增",
     });
-    const app = getCurrentInstance()?.appContext.config.globalProperties;
+    const app = getCurrentInstance()?.proxy;
     const proTableRef = ref<Record<string, any>>();
     const formRef = ref<Record<string, any>>();
 

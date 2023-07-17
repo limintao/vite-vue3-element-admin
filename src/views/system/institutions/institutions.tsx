@@ -31,7 +31,7 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
-    const app = getCurrentInstance()?.appContext.config.globalProperties;
+    const app = getCurrentInstance()?.proxy;
     const formRef = ref<Record<string, any>>();
     const treeRef = ref<Record<string, any>>();
     const getInitialData = (): Record<string, any> => ({

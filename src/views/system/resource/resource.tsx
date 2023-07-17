@@ -68,7 +68,7 @@ export default defineComponent({
       id: "id",
       parentId: "parentId",
     };
-    const app = getCurrentInstance()?.appContext.config.globalProperties;
+    const app = getCurrentInstance()?.proxy;
     const formRef = ref<Record<string, any>>();
     const treeRef = ref<Record<string, any>>();
 
